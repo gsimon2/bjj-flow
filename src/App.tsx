@@ -13,17 +13,36 @@ import { initialEdges, initialNodes } from "./graphData";
 
 import "reactflow/dist/style.css";
 import ThemeController from "./ThemeController";
-import { ControlsStyled, MiniMapStyled, ReactFlowStyled } from "./theme";
+import {
+   ControlsStyled,
+   MiniMapStyled,
+   ReactFlowStyled,
+   themes,
+} from "./theme";
 import CustomNode from "./CustomNode";
+import { localStorageKeys } from './constants';
 
 import "./index.css";
+import { Button } from '@mui/material';
 
 const nodeTypes = {
    custom: CustomNode,
 };
 
+const getInitialTheme = (): themes => {
+   const savedTheme = localStorage.getItem(localStorageKeys.themePreference);
+
+   if (savedTheme) {
+      return savedTheme === themes.dark ? themes.dark : themes.light;
+   }
+
+   return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? themes.dark
+      : themes.light;
+};
+
 const App: React.FC = () => {
-   const [themeName, setThemeName] = useState<"light" | "dark">("dark");
+   const [themeName, setThemeName] = useState<themes>(getInitialTheme);
    const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
    const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
@@ -33,7 +52,7 @@ const App: React.FC = () => {
    );
 
    const toggleThemeName = () => {
-      setThemeName((t) => (t === "light" ? "dark" : "light"));
+      setThemeName((t) => (t === themes.light ? themes.dark : themes.light));
    };
 
    return (
@@ -52,7 +71,7 @@ const App: React.FC = () => {
                <MiniMapStyled />
                <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
                <Panel position="top-left">
-                  <button onClick={toggleThemeName}>switch mode</button>
+                  <Button variant="contained" onClick={toggleThemeName}>switch mode</Button>
                </Panel>
             </ReactFlowStyled>
          </main>

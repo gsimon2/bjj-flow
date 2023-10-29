@@ -1,9 +1,9 @@
 import React, { PropsWithChildren } from 'react';
-import { darkTheme, lightTheme } from './theme';
-import { ThemeProvider } from 'styled-components';
+import { getTheme, themes } from './theme';
+import { ThemeProvider } from '@mui/material';
 
 const ThemeController: React.FC<PropsWithChildren< IThemeControllerProps>> = ({themeName, children}) => {
-   const theme = themeName === 'light' ? lightTheme : darkTheme;
+   const theme = getTheme(themeName);
 
    return (
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
@@ -11,7 +11,7 @@ const ThemeController: React.FC<PropsWithChildren< IThemeControllerProps>> = ({t
 };
 
 export interface IThemeControllerProps {
-   themeName: 'light' | 'dark'
+   themeName: themes
 }
 
-export default ThemeController;
+export default React.memo(ThemeController);
