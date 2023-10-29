@@ -1,6 +1,9 @@
 export const initialNodes = [
-   { id: '1', position: { x: 0, y: 0 }, data: { label: 'Takedown' }, type: 'custom' },
-   { id: '2', position: { x: 0, y: 100 }, data: { label: 'Gaurd Top' }, type: 'custom' },
+   { id: 'td', position: { x: 0, y: 0 }, data: { label: 'Takedown' }, type: 'custom' },
+   { id: 'gt', position: { x: 0, y: 100 }, data: { label: 'Gaurd Top' }, type: 'custom' },
  ];
- export const initialEdges = [{ id: 'e1-2', source: '1', target: '2', label: 'single leg' }];
+ export const initialEdges = [
+   { id: 'single-leg', source: 'td', target: 'gt', label: 'single leg' },
+   { id: 'double-leg', source: 'td', target: 'gt', label: 'double leg' }
+];
  
