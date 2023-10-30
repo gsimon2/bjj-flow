@@ -1,3 +1,4 @@
 export const localStorageKeys = {
-   themePreference: 'themePreference'
+   themePreference: 'themePreference',
+   savedFlow: 'bjjFlow'
 };
